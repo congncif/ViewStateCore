@@ -2,10 +2,4 @@ use_frameworks!
 
 target 'ViewStateCore_Example' do
   pod 'ViewStateCore', :path => '../'
-
-  target 'ViewStateCore_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

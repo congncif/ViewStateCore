@@ -65,8 +65,8 @@ open class ViewState: NSObject, ViewStateSubcriber {
             guard !ignoreKeys.contains(key) else { continue }
             self.addObserver(self, forKeyPath: key, options: [.old, .new], context: nil)
             
-            if let value = value(forKey: key) as? ViewState {
-                value.delegate = self
+            if let subState = self.value(forKey: key) as? ViewState {
+                subState.delegate = self
             }
         }
     }

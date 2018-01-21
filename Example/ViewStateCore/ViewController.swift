@@ -7,17 +7,39 @@
 //
 
 import UIKit
+import ViewStateCore
 
-class ViewController: UIViewController {
+class TestState: ViewState {
+    dynamic var test: String = "Default value"
+}
 
+class ViewController: UIViewController, ViewStateSubcriber {
+
+    @IBOutlet var valueLabel: UILabel!
+    
+    var state = TestState()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        state.subscribe(for: self)
+        
+        render()
+    }
+    
+    deinit {
+        state.unsubscribe(for: self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func render() {
+        valueLabel.text = state.test
+    }
+    
+    func viewStateDidChange(newState: ViewState) {
+        render()
+    }
+    
+    @IBAction func buttonDidTap(_ sender: Any) {
+        state.test = "Value Changed"
     }
 
 }

@@ -1,5 +1,5 @@
 PODS:
-  - ViewStateCore (0.1.0)
+  - ViewStateCore (0.1.2)
 
 DEPENDENCIES:
   - ViewStateCore (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  ViewStateCore: bf1e7f1124f9f476dee9e9a6f80e27966fd6077e
+  ViewStateCore: f67f44757027bf49c3af14cdc9b0ba2465b6b0df
 
-PODFILE CHECKSUM: a75d1868533d849bda678b16ccb55ba3693e996b
+PODFILE CHECKSUM: 39569f44d5a4ffd6b057825fd6a660a294ff710c
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0
