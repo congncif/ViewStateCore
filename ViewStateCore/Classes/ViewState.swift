@@ -113,19 +113,22 @@ open class ViewState: NSObject, ViewStateSubcriber {
         
     }
     
-    public func notifyStateDidChange(newState: ViewState) {
-        delegate?.viewStateDidChange(newState: newState)
+    public func notifyStateDidChange(newState: ViewState? = nil) {
+        let state = newState ?? self
+        delegate?.viewStateDidChange(newState: state)
         
         for scrb in subscribers {
-            scrb.viewStateDidChange(newState: newState)
+            scrb.viewStateDidChange(newState: state)
         }
     }
     
-    public func notifyStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
-        delegate?.viewStateDidChange(newState: newState, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
+    public func notifyStateDidChange(newState: ViewState? = nil, keyPath: String, oldValue: Any?, newValue: Any?) {
+        let state = newState ?? self
+        
+        delegate?.viewStateDidChange(newState: state, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
         
         for scrb in subscribers {
-            scrb.viewStateDidChange(newState: newState, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
+            scrb.viewStateDidChange(newState: state, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
         }
     }
     
