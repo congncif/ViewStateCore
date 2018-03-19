@@ -8,12 +8,12 @@
 
 import Foundation
 
-public protocol ViewStateSubcriber: NSObjectProtocol {
+public protocol ViewStateSubscriber: NSObjectProtocol {
     func viewStateDidChange(newState: ViewState)
     func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
 }
 
-public extension ViewStateSubcriber {
+public extension ViewStateSubscriber {
     public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
         // default
     }
@@ -22,10 +22,10 @@ public extension ViewStateSubcriber {
 fileprivate let kSubscribers = "subscribers"
 fileprivate let kDelegate = "delegate"
 
-open class ViewState: NSObject, ViewStateSubcriber {
+open class ViewState: NSObject, ViewStateSubscriber {
     
-    public private(set) var subscribers: [ViewStateSubcriber] = []
-    public weak var delegate: ViewStateSubcriber?
+    public private(set) var subscribers: [ViewStateSubscriber] = []
+    public weak var delegate: ViewStateSubscriber?
     
     public var keys: [String] {
         var results = [String]()
@@ -55,13 +55,25 @@ open class ViewState: NSObject, ViewStateSubcriber {
         return [kSubscribers, kDelegate]
     }
     
+    open var allowedKeys: [String] {
+        return []
+    }
+    
+    private var workingKeys: [String] {
+        var workingKeys = keys
+        if allowedKeys.count > 0 {
+            workingKeys = allowedKeys
+        }
+        return workingKeys
+    }
+    
     public override init() {
         super.init()
         addObservers()
     }
     
     open func addObservers() {
-        for key in keys {
+        for key in workingKeys {
             guard !ignoreKeys.contains(key) else { continue }
             self.addObserver(self, forKeyPath: key, options: [.old, .new], context: nil)
             
@@ -72,13 +84,13 @@ open class ViewState: NSObject, ViewStateSubcriber {
     }
     
     open func removeObservers() {
-        for key in keys {
+        for key in workingKeys {
             guard !ignoreKeys.contains(key) else { continue }
             self.removeObserver(self, forKeyPath: key)
         }
     }
     
-    public func subscribe(for object: ViewStateSubcriber) {
+    public func subscribe(for object: ViewStateSubscriber) {
         if !subscribers.contains(where: { (scrb) -> Bool in
             return scrb.isEqual(object)
         }) {
@@ -86,7 +98,7 @@ open class ViewState: NSObject, ViewStateSubcriber {
         }
     }
     
-    public func unsubscribe(for object: ViewStateSubcriber) {
+    public func unsubscribe(for object: ViewStateSubscriber) {
         if let index = subscribers.index(where: { (scrb) -> Bool in
             return scrb.isEqual(object)
         }) {
@@ -141,7 +153,7 @@ open class ViewState: NSObject, ViewStateSubcriber {
     }
     
     fileprivate func key(for value: ViewState) -> String? {
-        for aKey in keys {
+        for aKey in workingKeys {
             if let val = self.value(forKeyPath: aKey) as? ViewState, val == value {
                 return aKey
             }

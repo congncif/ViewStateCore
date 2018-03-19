@@ -13,7 +13,7 @@ class TestState: ViewState {
     dynamic var test: String = "Default value"
 }
 
-class ViewController: UIViewController, ViewStateSubcriber {
+class ViewController: UIViewController, ViewStateSubscriber {
 
     @IBOutlet var valueLabel: UILabel!
     
