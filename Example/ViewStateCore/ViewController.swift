@@ -9,15 +9,35 @@
 import UIKit
 import ViewStateCore
 
+@objc enum TestEnum: Int {
+    case v1
+    case v2
+    case v3
+    case v4
+}
+
 class TestState: ViewState {
-    dynamic var test: String = "Default value"
+    @objc dynamic var test: String = "Default value"
+    @objc dynamic var xx: String = ""
+    @objc dynamic var testEnum: TestEnum = .v1
+    
+    override var ignoreKeys: [String] {
+        var keys = super.ignoreKeys
+        let xxkey = #keyPath(TestState.xx)
+        keys.append(xxkey)
+        return keys
+    }
 }
 
 class ViewController: UIViewController, ViewStateSubscriber {
 
     @IBOutlet var valueLabel: UILabel!
     
-    var state = TestState()
+//    var state: TestState {
+//        return (UIApplication.shared.delegate as! AppDelegate).state
+//    }
+    
+    var state: TestState = TestState()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +46,19 @@ class ViewController: UIViewController, ViewStateSubscriber {
         render()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        state.subscribe(for: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        state.unsubscribe(for: self)
+    }
+    
     deinit {
         state.unsubscribe(for: self)
+        print("XXX")
     }
 
     func render() {
@@ -38,8 +69,16 @@ class ViewController: UIViewController, ViewStateSubscriber {
         render()
     }
     
+    func viewStateDidSubscribed(state: ViewState) {
+        print("Refresh")
+    }
+    
+    func viewStateWillUnsubscribed(state: ViewState) {
+        print("Unsub...")
+    }
+    
     @IBAction func buttonDidTap(_ sender: Any) {
-        state.test = "Value Changed"
+        state.testEnum = .v4
     }
 
 }

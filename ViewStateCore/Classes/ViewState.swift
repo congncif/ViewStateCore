@@ -8,24 +8,60 @@
 
 import Foundation
 
+public struct Subscriber: Equatable {
+    var id: String
+    var target: (() -> ViewStateSubscriber?)?
+    
+    public static func == (lhs: Subscriber, rhs: Subscriber) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 public protocol ViewStateSubscriber: NSObjectProtocol {
     func viewStateDidChange(newState: ViewState)
     func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
+    func viewStateDidSubscribed(state: ViewState)
+    func viewStateWillUnsubscribed(state: ViewState)
 }
 
 public extension ViewStateSubscriber {
     public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
         // default
     }
+    
+    func viewStateDidSubscribed(state: ViewState) {
+        // default
+    }
+    
+    func viewStateWillUnsubscribed(state: ViewState) {
+        // default
+    }
 }
 
 fileprivate let kSubscribers = "subscribers"
 fileprivate let kDelegate = "delegate"
+fileprivate let kPrivateDelegate = "_delegate"
 
 open class ViewState: NSObject, ViewStateSubscriber {
+    public private(set) var subscribers: [Subscriber] = []
+    public weak var delegate: ViewStateSubscriber? {
+        get {
+            return _delegate
+        }
+        
+        set {
+            if newValue == nil {
+                _delegate?.viewStateWillUnsubscribed(state: self)
+            }
+            _delegate = newValue
+            
+            if let value = newValue {
+                value.viewStateDidSubscribed(state: self)
+            }
+        }
+    }
     
-    public private(set) var subscribers: [ViewStateSubscriber] = []
-    public weak var delegate: ViewStateSubscriber?
+    fileprivate weak var _delegate: ViewStateSubscriber?
     
     public var keys: [String] {
         var results = [String]()
@@ -52,7 +88,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
     }
     
     open var ignoreKeys: [String] {
-        return [kSubscribers, kDelegate]
+        return [kSubscribers, kDelegate, kPrivateDelegate]
     }
     
     open var allowedKeys: [String] {
@@ -75,7 +111,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
     open func addObservers() {
         for key in workingKeys {
             guard !ignoreKeys.contains(key) else { continue }
-            self.addObserver(self, forKeyPath: key, options: [.old, .new], context: nil)
+            addObserver(self, forKeyPath: key, options: [.old, .new], context: nil)
             
             if let subState = self.value(forKey: key) as? ViewState {
                 subState.delegate = self
@@ -86,22 +122,34 @@ open class ViewState: NSObject, ViewStateSubscriber {
     open func removeObservers() {
         for key in workingKeys {
             guard !ignoreKeys.contains(key) else { continue }
-            self.removeObserver(self, forKeyPath: key)
+            removeObserver(self, forKeyPath: key)
         }
     }
     
-    public func subscribe(for object: ViewStateSubscriber) {
-        if !subscribers.contains(where: { (scrb) -> Bool in
-            return scrb.isEqual(object)
-        }) {
-            subscribers.append(object)
+    public func subscribe<S>(for object: S) where S: NSObject, S: ViewStateSubscriber {
+        let id = String(describing: object)
+        let target = { [weak object] in
+            object
+        }
+        let subscriber = Subscriber(id: id, target: target)
+        
+        if !subscribers.contains(subscriber) {
+            subscribers.append(subscriber)
+            
+            let target = subscriber.target?()
+            target?.viewStateDidSubscribed(state: self)
         }
     }
     
-    public func unsubscribe(for object: ViewStateSubscriber) {
+    public func unsubscribe<S>(for object: S) where S: NSObject, S: ViewStateSubscriber {
+        let id = String(describing: object)
         if let index = subscribers.index(where: { (scrb) -> Bool in
-            return scrb.isEqual(object)
+            scrb.id == id
         }) {
+            let subscriber = subscribers[index]
+            let target = subscriber.target?()
+            target?.viewStateWillUnsubscribed(state: self)
+            
             subscribers.remove(at: index)
         }
     }
@@ -111,7 +159,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
         removeObservers()
     }
     
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         guard let key = keyPath, !ignoreKeys.contains(key) else { return }
         
         notifyStateDidChange(newState: self)
@@ -122,7 +170,6 @@ open class ViewState: NSObject, ViewStateSubscriber {
             value.delegate = self
         }
         notifyStateDidChange(newState: self, keyPath: key, oldValue: oldValue, newValue: newValue)
-        
     }
     
     public func notifyStateDidChange(newState: ViewState? = nil) {
@@ -130,7 +177,8 @@ open class ViewState: NSObject, ViewStateSubscriber {
         delegate?.viewStateDidChange(newState: state)
         
         for scrb in subscribers {
-            scrb.viewStateDidChange(newState: state)
+            let target = scrb.target?()
+            target?.viewStateDidChange(newState: state)
         }
     }
     
@@ -140,7 +188,8 @@ open class ViewState: NSObject, ViewStateSubscriber {
         delegate?.viewStateDidChange(newState: state, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
         
         for scrb in subscribers {
-            scrb.viewStateDidChange(newState: state, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
+            let target = scrb.target?()
+            target?.viewStateDidChange(newState: state, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
         }
     }
     
@@ -160,6 +209,4 @@ open class ViewState: NSObject, ViewStateSubscriber {
         }
         return nil
     }
-    
-    
 }
