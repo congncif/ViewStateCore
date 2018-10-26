@@ -17,6 +17,10 @@ public struct Subscriber: Equatable {
     }
 }
 
+public protocol ViewStateRenderable {
+    func render(state: ViewState)
+}
+
 public protocol ViewStateSubscriber: NSObjectProtocol {
     func viewStateDidChange(newState: ViewState)
     func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
@@ -29,12 +33,22 @@ public extension ViewStateSubscriber {
         // default
     }
     
-    func viewStateDidSubscribed(state: ViewState) {
+    public func viewStateDidSubscribed(state: ViewState) {
         // default
     }
     
-    func viewStateWillUnsubscribed(state: ViewState) {
+    public func viewStateWillUnsubscribed(state: ViewState) {
         // default
+    }
+}
+
+public extension ViewStateSubscriber where Self: ViewStateRenderable {
+    public func viewStateDidChange(newState: ViewState) {
+        render(state: newState)
+    }
+    
+    public func viewStateDidSubscribed(state: ViewState) {
+        render(state: state)
     }
 }
 
