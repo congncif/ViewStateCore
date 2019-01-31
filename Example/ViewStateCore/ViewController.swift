@@ -30,7 +30,11 @@ class TestState: ViewState {
 }
 
 class ViewController: UIViewController, ViewStateSubscriber {
-
+    
+    func viewStateDidChange(newState: ViewState) {
+        render()
+    }
+    
     @IBOutlet var valueLabel: UILabel!
     
 //    var state: TestState {
@@ -41,7 +45,8 @@ class ViewController: UIViewController, ViewStateSubscriber {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        state.subscribe(for: self)
+        
+        subscribeStateChange(state)
         
         render()
     }
@@ -57,29 +62,27 @@ class ViewController: UIViewController, ViewStateSubscriber {
     }
     
     deinit {
-        state.unsubscribe(for: self)
+        state.unregister(subscriber: self)
         print("XXX")
     }
-
+    
     func render() {
         valueLabel.text = state.test
     }
     
-    func viewStateDidChange(newState: ViewState) {
-        render()
-    }
-    
-    func viewStateDidSubscribed(state: ViewState) {
-        print("Refresh")
-    }
-    
-    func viewStateWillUnsubscribed(state: ViewState) {
-        print("Unsub...")
-    }
+//    func viewStateDidChange(newState: ViewState) {
+//        render()
+//    }
+//
+//    func viewStateDidSubscribed(state: ViewState) {
+//        print("Refresh")
+//    }
+//
+//    func viewStateWillUnsubscribed(state: ViewState) {
+//        print("Unsub...")
+//    }
     
     @IBAction func buttonDidTap(_ sender: Any) {
         state.testEnum = .v4
     }
-
 }
-

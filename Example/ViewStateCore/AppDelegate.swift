@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var state = TestState()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        let obj1 = NSObject()
+        let obj2 = NSObject()
+        
+        print(String(describing: obj1))
+        print(String(describing: obj2))
+        
         return true
     }
 
