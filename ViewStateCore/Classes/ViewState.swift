@@ -118,7 +118,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
         return []
     }
     
-    private var workingKeys: [String] {
+    fileprivate var workingKeys: [String] {
         var workingKeys = keys
         if allowedKeys.count > 0 {
             workingKeys = allowedKeys
@@ -224,9 +224,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
     @objc open func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
         notifyStateDidChange(newState: newState, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
     }
-}
-
-extension ViewState {
+    
     fileprivate func key(for value: ViewState) -> String? {
         for aKey in workingKeys {
             if let val = self.value(forKeyPath: aKey) as? ViewState, val == value {
