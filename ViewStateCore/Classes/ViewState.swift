@@ -25,7 +25,15 @@ public protocol ViewStateSubscriber: AnyObject {
     func viewStateDidChange(newState: ViewState)
     
     // Optional
+    
+    // Useful to show animation
     func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
+    
+    // Subscribing
+    func subscribeStateChange(_ state: ViewState)
+    func unsubscribeStateChange(_ state: ViewState)
+    
+    // Listening subscribing
     func viewStateDidSubscribe(_ state: ViewState)
     func viewStateWillUnsubscribe(_ state: ViewState)
 }
