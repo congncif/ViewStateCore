@@ -17,7 +17,7 @@ public struct Subscriber: Equatable {
     }
 }
 
-public protocol ViewStateRenderable {
+public protocol ViewStateRenderable: ViewStateSubscriber {
     func render(state: ViewState)
 }
 
@@ -54,7 +54,7 @@ public extension ViewStateSubscriber {
     }
 }
 
-public extension ViewStateSubscriber where Self: ViewStateRenderable {
+public extension ViewStateRenderable {
     public func viewStateDidChange(newState: ViewState) {
         render(state: newState)
     }
