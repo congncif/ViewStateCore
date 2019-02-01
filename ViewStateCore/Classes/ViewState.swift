@@ -23,8 +23,9 @@ public protocol ViewStateRenderable {
 
 public protocol ViewStateSubscriber: AnyObject {
     func viewStateDidChange(newState: ViewState)
-    func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
     
+    // Optional
+    func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
     func viewStateDidSubscribe(_ state: ViewState)
     func viewStateWillUnsubscribe(_ state: ViewState)
 }
@@ -32,6 +33,10 @@ public protocol ViewStateSubscriber: AnyObject {
 extension ViewStateSubscriber {
     public func subscribeStateChange(_ state: ViewState) {
         state.register(subscriber: self)
+    }
+    
+    public func unsubscribeStateChange(_ state: ViewState) {
+        state.unregister(subscriber: self)
     }
 }
 
