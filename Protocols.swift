@@ -44,13 +44,13 @@ public extension ViewStateSubscriber {
 
 /**********************************************************************
  /// Use ViewStateFillable if you want listen changes of each of ViewState keys then fill into a target.
- 
+
  => Best practices in this case is a flat ViewState with no nested ViewState.
 
  class MainState: ViewState {
     @objc dynamic var name: String = "[iF] Solution"
  }
- 
+
  class Subscriber: NSObject, ViewStateFillable {
     var fillingOptions: [FillaleOption] {
         let nameOption = FillaleOption(keyPath: #keyPath(MainState.name), target: textLabel, fillingKeyPath: #keyPath(UITextField.text))
@@ -59,43 +59,52 @@ public extension ViewStateSubscriber {
  }
  **********************************************************************/
 
-
 /// Default Keys. You can add custom FillableKey by extend FillableKey struct.
 /// Eg: extension FillableKey {
 ///         public static let customKey = "customKey"
 ///     }
 public struct FillableKey {
     public static let title = "title"
-    
+
     public static let isHidden = "isHidden"
     public static let isEnabled = "isEnabled"
-    
+
     public static let text = "text"
     public static let attributedText = "attributedText"
     public static let placeholder = "placeholder"
     public static let attributedPlaceholder = "attributedPlaceholder"
-    
+
     // UIButton
     public static let currentTitle = "currentTitle"
     public static let currentImage = "currentImage"
     public static let currentAttributedTitle = "currentAttributedTitle"
-    
+
     public static let tintColor = "tintColor"
     public static let textColor = "textColor"
     public static let currentTitleColor = "currentTitleColor"
-    
+
     public static let image = "image"
 }
 
 public struct FillaleOption {
     public var keyPath: String
-    public var targetKeyPath: String
-    public weak var target: NSObject?
-    
-    public init(keyPath: String, target: NSObject?, fillingKeyPath: String) {
+    public var fillValue: (Any?) -> Void
+
+    public init(keyPath: String, fillValue: @escaping (Any?) -> Void) {
         self.keyPath = keyPath
-        targetKeyPath = fillingKeyPath
-        self.target = target
+        self.fillValue = fillValue
+    }
+
+    public init(keyPath: String, target: NSObject, fillingKeyPath: String) {
+        let _fillValue: (Any?) -> Void = { [weak target] value in
+            guard let _target = target else { return }
+            if _target.propertyNames().contains(fillingKeyPath) {
+                _target.setValue(value, forKeyPath: fillingKeyPath)
+            } else {
+                print("[ViewStateCore] The target \(_target) doesn't contain \(fillingKeyPath) key")
+            }
+        }
+        self.init(keyPath: keyPath, fillValue: _fillValue)
     }
 }
 
@@ -122,13 +131,7 @@ extension ViewStateFillable {
     fileprivate func fill(value: Any?, forKeyPath keyPath: String) {
         let targets = fillingOptions.filter { $0.keyPath == keyPath }
         for item in targets {
-            if let target = item.target {
-                if target.propertyNames().contains(item.targetKeyPath) {
-                    target.setValue(value, forKeyPath: item.targetKeyPath)
-                } else {
-                    print("[ViewStateCore] The target doesn't contain \(item.targetKeyPath) key")
-                }
-            }
+            item.fillValue(value)
         }
     }
 }
@@ -137,7 +140,7 @@ extension ViewStateFillable {
  /// Use ViewStateRenderable if you want divide ViewState into multiples sections then listen changes of each separated section.
 
  => Best practices in this case is 2 level ViewState with one deep nested ViewState.
- 
+
  - Delare ViewState:
 
  class MainViewState: ViewState {
