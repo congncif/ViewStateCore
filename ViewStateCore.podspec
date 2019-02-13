@@ -9,6 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'ViewStateCore'
   s.version          = '1.2.0'
+  s.swift_version    = '4.2'
   s.summary          = 'A short description of ViewStateCore.'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }

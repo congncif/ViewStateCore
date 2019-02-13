@@ -1,7 +1,11 @@
 {
   "name": "ViewStateCore",
-  "version": "0.1.4",
+  "version": "1.2.0",
+  "swift_version": "4.2",
   "summary": "A short description of ViewStateCore.",
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "4.2"
+  },
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/congncif/ViewStateCore",
   "license": {
@@ -13,7 +17,7 @@
   },
   "source": {
     "git": "https://github.com/congncif/ViewStateCore.git",
-    "tag": "0.1.4"
+    "tag": "1.2.0"
   },
   "platforms": {
     "ios": "8.0"
