@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AB6A6D922145EC20080F035 /* NSObject+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB6A6D822145EC20080F035 /* NSObject+Properties.swift */; };
+		0AB6A6DB221460230080F035 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB6A6DA221460230080F035 /* Protocols.swift */; };
 		120DB2D8EE575BAC0CFCF91127B54C83 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		1D60326BA281E4B0F6E3AAF67C5BA22F /* ViewStateCore-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CB370A4F06BDA1934543E66FACCE9F4 /* ViewStateCore-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49BC7E631DDAACFA68C64EA95EA44706 /* Pods-ViewStateCore_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 71DF5418BCAB09B867462F6B2E5EF408 /* Pods-ViewStateCore_Example-dummy.m */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AB6A6D822145EC20080F035 /* NSObject+Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Properties.swift"; sourceTree = "<group>"; };
+		0AB6A6DA221460230080F035 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		13DA62000A4A183BF5862B0EEB012ECA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		196060469477C391FB64D4600B422B4B /* ViewStateCore-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ViewStateCore-prefix.pch"; sourceTree = "<group>"; };
 		25E4C88DE8E9806F3CFB55B5EB5ABD5A /* Pods-ViewStateCore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViewStateCore_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -76,7 +80,9 @@
 		08DAB0D6B13F3132D0D9BE90B809EABE /* ViewStateCore */ = {
 			isa = PBXGroup;
 			children = (
+				0AB6A6DA221460230080F035 /* Protocols.swift */,
 				42CE9CAE0028CA218A1E5AD33A1A59A5 /* ViewState.swift */,
+				0AB6A6D822145EC20080F035 /* NSObject+Properties.swift */,
 				1A80F8D69F969C6C431795D18B3F193C /* Pod */,
 				EC227DEB9FB702B17E4E69A16475DFE1 /* Support Files */,
 			);
@@ -269,6 +275,8 @@
 			files = (
 				7724138314ECAD06CC5FAD8E3C0F18F1 /* ViewState.swift in Sources */,
 				C78A5C4C13EE3CA7CB18BE2C11343C21 /* ViewStateCore-dummy.m in Sources */,
+				0AB6A6D922145EC20080F035 /* NSObject+Properties.swift in Sources */,
+				0AB6A6DB221460230080F035 /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

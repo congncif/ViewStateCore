@@ -16,8 +16,12 @@ import ViewStateCore
     case v4
 }
 
+extension FillableKey {
+    static let custom = "custom"
+}
+
 class TestState: ViewState {
-    @objc dynamic var test: String = "Default value"
+    @objc dynamic var test: String = "Default Title"
     @objc dynamic var xx: String = ""
     @objc dynamic var testEnum: TestEnum = .v1
     
@@ -29,11 +33,18 @@ class TestState: ViewState {
     }
 }
 
-class ViewController: UIViewController, ViewStateSubscriber {
-    
-    func viewStateDidChange(newState: ViewState) {
-        render()
+class ViewController: UIViewController, ViewStateFillable {
+    var fillingOptions: [FillaleOption] {
+        let test = FillaleOption(keyPath: #keyPath(TestState.test),
+                                 target: valueLabel,
+                                 fillingKeyPath: #keyPath(UITextField.text))
+        
+        return [test]
     }
+    
+//    func viewStateDidChange(newState: ViewState) {
+//        render()
+//    }
     
     @IBOutlet var valueLabel: UILabel!
     
@@ -83,6 +94,7 @@ class ViewController: UIViewController, ViewStateSubscriber {
 //    }
     
     @IBAction func buttonDidTap(_ sender: Any) {
-        state.testEnum = .v4
+//        state.testEnum = .v4
+        state.test = "XXX"
     }
 }
