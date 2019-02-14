@@ -109,27 +109,27 @@ public struct FillingOption {
 }
 
 public protocol ViewStateFillable: ViewStateSubscriber {
-    var fillingOptions: [FillingOption] { get }
+    func fillingOptions(_ state: ViewState) -> [FillingOption]
 }
 
 extension ViewStateFillable {
     public func viewStateDidChange(newState: ViewState) {}
 
     public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
-        fill(value: newValue, forKeyPath: keyPath)
+        fill(value: newValue, of: newState, forKeyPath: keyPath)
     }
 
     public func viewStateDidSubscribe(_ state: ViewState) {
         let workingKeys = state.workingKeys
-
         for key in workingKeys {
             let value = state.value(forKeyPath: key)
-            fill(value: value, forKeyPath: key)
+            fill(value: value, of: state, forKeyPath: key)
         }
     }
 
-    fileprivate func fill(value: Any?, forKeyPath keyPath: String) {
-        let targets = fillingOptions.filter { $0.keyPath == keyPath }
+    fileprivate func fill(value: Any?, of state: ViewState, forKeyPath keyPath: String) {
+        let options = fillingOptions(state)
+        let targets = options.filter { $0.keyPath == keyPath }
         for item in targets {
             item.action(value)
         }

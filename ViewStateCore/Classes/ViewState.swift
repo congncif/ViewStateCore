@@ -37,7 +37,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
             _delegate = newValue
             
             if let value = newValue {
-                value.viewStateDidSubscribe(self)
+                notifyviewStateDidSubscribe(to: value)
             }
         }
     }
@@ -80,8 +80,9 @@ open class ViewState: NSObject, ViewStateSubscriber {
         if !subscribers.contains(_subscriber) {
             subscribers.append(_subscriber)
             
-            let target = _subscriber.target
-            target?.viewStateDidSubscribe(self)
+            if let target = _subscriber.target {
+                notifyviewStateDidSubscribe(to: target)
+            }
         }
     }
     
@@ -199,5 +200,32 @@ internal extension ViewState {
         workingKeys = workingKeys.filter { !igKeys.contains($0) }
         
         return workingKeys
+    }
+    
+    var children: [ViewState] {
+        return workingKeys.compactMap { [weak self] (key) -> ViewState? in
+            if let val = self?.value(forKeyPath: key) as? ViewState {
+                return val
+            }
+            return nil
+        }
+    }
+    
+    var deepStates: [ViewState] {
+        let _children = children
+        if _children.count > 0 {
+            return _children.reduce([self], { (result, child) -> [ViewState] in
+                result + child.deepStates
+            })
+        } else {
+            return [self]
+        }
+    }
+    
+    func notifyviewStateDidSubscribe(to subscriber: ViewStateSubscriber) {
+        let allStates = deepStates
+        allStates.forEach { currentState in
+            subscriber.viewStateDidSubscribe(currentState)
+        }
     }
 }

@@ -34,7 +34,7 @@ class TestState: ViewState {
 }
 
 class ViewController: UIViewController, ViewStateFillable {
-    var fillingOptions: [FillingOption] {
+    func fillingOptions(_ state: ViewState) -> [FillingOption] {
         let test = FillingOption(keyPath: #keyPath(TestState.test),
                                  target: valueLabel,
                                  targetKeyPath: #keyPath(UITextField.text))
