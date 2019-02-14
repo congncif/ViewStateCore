@@ -52,8 +52,8 @@ public extension ViewStateSubscriber {
  }
 
  class Subscriber: NSObject, ViewStateFillable {
-    var fillingOptions: [FillaleOption] {
-        let nameOption = FillaleOption(keyPath: #keyPath(MainState.name), target: textLabel, fillingKeyPath: #keyPath(UITextField.text))
+    var fillingOptions: [FillingOption] {
+        let nameOption = FillingOption(keyPath: #keyPath(MainState.name), target: textLabel, fillingKeyPath: #keyPath(UITextField.text))
         return [nameOption]
     }
  }
@@ -86,30 +86,30 @@ public struct FillableKey {
     public static let image = "image"
 }
 
-public struct FillaleOption {
+public struct FillingOption {
     public var keyPath: String
-    public var fillValue: (Any?) -> Void
+    public var action: (Any?) -> Void
 
-    public init(keyPath: String, fillValue: @escaping (Any?) -> Void) {
+    public init(keyPath: String, action: @escaping (Any?) -> Void) {
         self.keyPath = keyPath
-        self.fillValue = fillValue
+        self.action = action
     }
 
-    public init(keyPath: String, target: NSObject, fillingKeyPath: String) {
-        let _fillValue: (Any?) -> Void = { [weak target] value in
+    public init(keyPath: String, target: NSObject, targetKeyPath: String) {
+        let _fillingValue: (Any?) -> Void = { [weak target] value in
             guard let _target = target else { return }
-            if _target.propertyNames().contains(fillingKeyPath) {
-                _target.setValue(value, forKeyPath: fillingKeyPath)
+            if _target.propertyNames().contains(targetKeyPath) {
+                _target.setValue(value, forKeyPath: targetKeyPath)
             } else {
-                print("[ViewStateCore] The target \(_target) doesn't contain \(fillingKeyPath) key")
+                print("[ViewStateCore] The target \(_target) doesn't contain \(targetKeyPath) key")
             }
         }
-        self.init(keyPath: keyPath, fillValue: _fillValue)
+        self.init(keyPath: keyPath, action: _fillingValue)
     }
 }
 
 public protocol ViewStateFillable: ViewStateSubscriber {
-    var fillingOptions: [FillaleOption] { get }
+    var fillingOptions: [FillingOption] { get }
 }
 
 extension ViewStateFillable {
@@ -131,7 +131,7 @@ extension ViewStateFillable {
     fileprivate func fill(value: Any?, forKeyPath keyPath: String) {
         let targets = fillingOptions.filter { $0.keyPath == keyPath }
         for item in targets {
-            item.fillValue(value)
+            item.action(value)
         }
     }
 }

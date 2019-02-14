@@ -34,10 +34,10 @@ class TestState: ViewState {
 }
 
 class ViewController: UIViewController, ViewStateFillable {
-    var fillingOptions: [FillaleOption] {
-        let test = FillaleOption(keyPath: #keyPath(TestState.test),
+    var fillingOptions: [FillingOption] {
+        let test = FillingOption(keyPath: #keyPath(TestState.test),
                                  target: valueLabel,
-                                 fillingKeyPath: #keyPath(UITextField.text))
+                                 targetKeyPath: #keyPath(UITextField.text))
         
         return [test]
     }
