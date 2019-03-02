@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3A10E9222834E90007C0EE /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3A10E8222834E90007C0EE /* Holder.swift */; };
 		0DD81A092EE4E729B446B02F9B427015 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */; };
 		6C48E00D901DF36BA163E1FD70AEF4C8 /* Pods-ViewStateCore_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3BCD40994DD6B275A9583E69289981 /* Pods-ViewStateCore_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -15,7 +16,7 @@
 		7D6A9267248E1989332B4806E4CEDF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		AB5B32507A301E26F28A54F50D636677 /* Pods-ViewStateCore_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F92FF828ED81D3CFE7A0A3E263A75 /* Pods-ViewStateCore_Example-dummy.m */; };
 		ABEF503F6CAE68CB38D73423D584E21E /* ViewStateCore-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D987874CE0A20C339B831700B3B8EDC /* ViewStateCore-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E23553617D225E641A89FD142CA6ACBD /* NSObject+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4901E407922831186FC960DA082238 /* NSObject+Properties.swift */; };
+		E23553617D225E641A89FD142CA6ACBD /* NSObject++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4901E407922831186FC960DA082238 /* NSObject++.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0427FC3899FE242213785607845AEA0D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		1D4901E407922831186FC960DA082238 /* NSObject+Properties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject+Properties.swift"; path = "ViewStateCore/Classes/NSObject+Properties.swift"; sourceTree = "<group>"; };
+		0427FC3899FE242213785607845AEA0D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0A3A10E8222834E90007C0EE /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Holder.swift; path = ViewStateCore/Classes/Holder.swift; sourceTree = "<group>"; };
+		1D4901E407922831186FC960DA082238 /* NSObject++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject++.swift"; path = "ViewStateCore/Classes/NSObject++.swift"; sourceTree = "<group>"; };
 		23EDB9299DA8562A5B39A7C7CC518AD0 /* ViewStateCore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ViewStateCore.xcconfig; sourceTree = "<group>"; };
 		3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = ViewStateCore/Classes/Protocols.swift; sourceTree = "<group>"; };
 		436F92FF828ED81D3CFE7A0A3E263A75 /* Pods-ViewStateCore_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ViewStateCore_Example-dummy.m"; sourceTree = "<group>"; };
@@ -39,18 +41,18 @@
 		4D987874CE0A20C339B831700B3B8EDC /* ViewStateCore-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ViewStateCore-umbrella.h"; sourceTree = "<group>"; };
 		5D3C68E2981F0A1C7779918C24EA3C25 /* Pods-ViewStateCore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViewStateCore_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5D4977EF48715CC0DEBD28094D80650B /* ViewStateCore-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ViewStateCore-Info.plist"; sourceTree = "<group>"; };
-		5DED8D234D135C0559C8ED41B32982A1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		5DED8D234D135C0559C8ED41B32982A1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6A2730D7227D20F527D21DC7EEFDD8B9 /* Pods-ViewStateCore_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ViewStateCore_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		879D1502E04A8D3F29355D5888B8DFFC /* ViewStateCore-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ViewStateCore-prefix.pch"; sourceTree = "<group>"; };
 		8EC884A0017AFD40ADA7BD5F147169FA /* Pods-ViewStateCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViewStateCore_Example.release.xcconfig"; sourceTree = "<group>"; };
 		9D3BCD40994DD6B275A9583E69289981 /* Pods-ViewStateCore_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ViewStateCore_Example-umbrella.h"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B83BDD2BD9C4ACBEAF184FBCC0F2C8A0 /* Pods-ViewStateCore_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ViewStateCore_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		C11E4A9323D6A6164D472979E3B20822 /* ViewStateCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ViewStateCore.framework; path = ViewStateCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C11E4A9323D6A6164D472979E3B20822 /* ViewStateCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ViewStateCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		DC09778B6230445BB8E3D74166958684 /* ViewStateCore.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ViewStateCore.modulemap; sourceTree = "<group>"; };
-		DD8D26762D287945DAC06761292BB032 /* ViewStateCore.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = ViewStateCore.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		DEDF0135A08B8424C1AFBBA9833BFD00 /* Pods_ViewStateCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ViewStateCore_Example.framework; path = "Pods-ViewStateCore_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD8D26762D287945DAC06761292BB032 /* ViewStateCore.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = ViewStateCore.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DEDF0135A08B8424C1AFBBA9833BFD00 /* Pods_ViewStateCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewStateCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E688886B1E51943B9EF994990964D87C /* Pods-ViewStateCore_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ViewStateCore_Example-Info.plist"; sourceTree = "<group>"; };
 		EB2F320CBD3ACAB97AD5DC434B490171 /* ViewStateCore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ViewStateCore-dummy.m"; sourceTree = "<group>"; };
 		FBFB0C7FCC250ADD73628570B8D2C786 /* Pods-ViewStateCore_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ViewStateCore_Example.modulemap"; sourceTree = "<group>"; };
@@ -130,9 +132,10 @@
 		BA60E50246D47D0E0E1893A60955E96A /* ViewStateCore */ = {
 			isa = PBXGroup;
 			children = (
-				1D4901E407922831186FC960DA082238 /* NSObject+Properties.swift */,
+				1D4901E407922831186FC960DA082238 /* NSObject++.swift */,
 				3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */,
 				4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */,
+				0A3A10E8222834E90007C0EE /* Holder.swift */,
 				AD3B905A8A871639BAA0DAA48CF85AC7 /* Pod */,
 				E01B6B72F6CBF9AAE565642E79B2D700 /* Support Files */,
 			);
@@ -298,8 +301,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E23553617D225E641A89FD142CA6ACBD /* NSObject+Properties.swift in Sources */,
+				E23553617D225E641A89FD142CA6ACBD /* NSObject++.swift in Sources */,
 				7271E3E266F8338C7DE7F2D2DF67E80C /* Protocols.swift in Sources */,
+				0A3A10E9222834E90007C0EE /* Holder.swift in Sources */,
 				2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */,
 				7C4E6C53A194D6ADD51352D7A1CAEEDB /* ViewStateCore-dummy.m in Sources */,
 			);
@@ -564,8 +568,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
