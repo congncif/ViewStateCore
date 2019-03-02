@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A3A10E9222834E90007C0EE /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3A10E8222834E90007C0EE /* Holder.swift */; };
 		0DD81A092EE4E729B446B02F9B427015 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */; };
 		6C48E00D901DF36BA163E1FD70AEF4C8 /* Pods-ViewStateCore_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3BCD40994DD6B275A9583E69289981 /* Pods-ViewStateCore_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,7 +30,6 @@
 
 /* Begin PBXFileReference section */
 		0427FC3899FE242213785607845AEA0D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		0A3A10E8222834E90007C0EE /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Holder.swift; path = ViewStateCore/Classes/Holder.swift; sourceTree = "<group>"; };
 		1D4901E407922831186FC960DA082238 /* NSObject++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject++.swift"; path = "ViewStateCore/Classes/NSObject++.swift"; sourceTree = "<group>"; };
 		23EDB9299DA8562A5B39A7C7CC518AD0 /* ViewStateCore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ViewStateCore.xcconfig; sourceTree = "<group>"; };
 		3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = ViewStateCore/Classes/Protocols.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 				1D4901E407922831186FC960DA082238 /* NSObject++.swift */,
 				3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */,
 				4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */,
-				0A3A10E8222834E90007C0EE /* Holder.swift */,
 				AD3B905A8A871639BAA0DAA48CF85AC7 /* Pod */,
 				E01B6B72F6CBF9AAE565642E79B2D700 /* Support Files */,
 			);
@@ -303,7 +300,6 @@
 			files = (
 				E23553617D225E641A89FD142CA6ACBD /* NSObject++.swift in Sources */,
 				7271E3E266F8338C7DE7F2D2DF67E80C /* Protocols.swift in Sources */,
-				0A3A10E9222834E90007C0EE /* Holder.swift in Sources */,
 				2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */,
 				7C4E6C53A194D6ADD51352D7A1CAEEDB /* ViewStateCore-dummy.m in Sources */,
 			);
