@@ -88,7 +88,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
     
     public func unregister(subscriber: ViewStateSubscriber) {
         let id = String(describing: subscriber)
-        if let index = subscribers.index(where: { (scrb) -> Bool in
+        if let index = subscribers.firstIndex(where: { (scrb) -> Bool in
             scrb.id == id
         }) {
             let _subscriber = subscribers[index]

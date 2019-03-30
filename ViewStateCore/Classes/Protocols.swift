@@ -26,7 +26,7 @@ public protocol ViewStateSubscriber: AnyObject {
 
 // Optional methods
 
-public extension ViewStateSubscriber {
+extension ViewStateSubscriber {
     public func subscribeStateChange(_ state: ViewState) {
         state.register(subscriber: self)
     }
@@ -173,7 +173,7 @@ public protocol ViewStateRenderable: ViewStateSubscriber {
     func render(state: ViewState)
 }
 
-public extension ViewStateRenderable {
+extension ViewStateRenderable {
     public func viewStateDidChange(newState: ViewState) {
         render(state: newState)
     }
