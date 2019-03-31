@@ -7,17 +7,13 @@
 
 import Foundation
 
-public protocol ViewStateSubscriber: AnyObject {
+public protocol ViewStateSubscriber {
     func viewStateDidChange(newState: ViewState)
 
     // Optionals
 
     // Useful to show animation
     func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?)
-
-    // Subscribing
-    func subscribeStateChange(_ state: ViewState)
-    func unsubscribeStateChange(_ state: ViewState)
 
     // Listening subscribing
     func viewStateDidSubscribe(_ state: ViewState)
@@ -27,14 +23,6 @@ public protocol ViewStateSubscriber: AnyObject {
 // Optional methods
 
 extension ViewStateSubscriber {
-    public func subscribeStateChange(_ state: ViewState) {
-        state.register(subscriber: self)
-    }
-
-    public func unsubscribeStateChange(_ state: ViewState) {
-        state.unregister(subscriber: self)
-    }
-
     public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {}
 
     public func viewStateDidSubscribe(_ state: ViewState) {}

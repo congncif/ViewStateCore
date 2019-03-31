@@ -57,7 +57,7 @@ class ViewController: UIViewController, ViewStateFillable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        subscribeStateChange(state)
+        state.register(subscriberObject: self)
         
         render()
     }
