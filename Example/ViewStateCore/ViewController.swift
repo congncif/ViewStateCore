@@ -34,17 +34,49 @@ class TestState: ViewState {
 }
 
 class ViewController: UIViewController, ViewStateFillable {
-    func fillingOptions(_ state: ViewState) -> [FillingOption] {
-        let test = FillingOption(keyPath: #keyPath(TestState.test),
-                                 target: valueLabel,
-                                 targetKeyPath: #keyPath(UITextField.text))
+    private var abc: String?
+    
+    struct InternalSubscriber: DedicatedViewStateRenderable {
+        weak var vc: ViewController?
         
-        return [test]
+        init(vc: ViewController?) {
+            self.vc = vc
+        }
+        
+        func dedicatedRender(state: TestState) {
+            vc?.abc = "XXX"
+        }
     }
     
-//    func viewStateDidChange(newState: ViewState) {
-//        render()
-//    }
+    struct InternalSub2: DedicatedViewStateSubscriber {
+        weak var vc: ViewController?
+        
+        init(vc: ViewController?) {
+            self.vc = vc
+        }
+        
+        func dedicatedViewStateDidChange(newState: TestState) {
+            vc?.abc = "did change"
+        }
+        
+        func dedicatedViewStateDidSubscribe(_ state: TestState) {
+            vc?.abc = "did sub"
+        }
+    }
+    
+    func fillingOptions(_ state: ViewState) -> [FillingOption] {
+        return [
+            OOO(#keyPath(TestState.test), valueLabel, #keyPath(UITextField.text))
+        ]
+    }
+    
+    var internalVS1: InternalSubscriber {
+        return InternalSubscriber(vc: self)
+    }
+    
+    var internalVS2: InternalSub2 {
+        return InternalSub2(vc: self)
+    }
     
     @IBOutlet var valueLabel: UILabel!
     
@@ -58,6 +90,8 @@ class ViewController: UIViewController, ViewStateFillable {
         super.viewDidLoad()
         
         state.register(subscriberObject: self)
+        state.register(subscriber: internalVS1)
+        state.register(subscriber: internalVS2)
         
         render()
     }

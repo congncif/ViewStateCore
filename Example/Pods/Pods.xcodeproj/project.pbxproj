@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0DD81A092EE4E729B446B02F9B427015 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
+		277C897B22E9594600995A92 /* DedicatedSubscribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C897A22E9594600995A92 /* DedicatedSubscribing.swift */; };
 		2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */; };
 		6C48E00D901DF36BA163E1FD70AEF4C8 /* Pods-ViewStateCore_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D3BCD40994DD6B275A9583E69289981 /* Pods-ViewStateCore_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7271E3E266F8338C7DE7F2D2DF67E80C /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */; };
+		7271E3E266F8338C7DE7F2D2DF67E80C /* ViewStateSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1B109B78308DF226C483F4B359B23A /* ViewStateSubscriber.swift */; };
 		7C4E6C53A194D6ADD51352D7A1CAEEDB /* ViewStateCore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2F320CBD3ACAB97AD5DC434B490171 /* ViewStateCore-dummy.m */; };
 		7D6A9267248E1989332B4806E4CEDF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		AB5B32507A301E26F28A54F50D636677 /* Pods-ViewStateCore_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F92FF828ED81D3CFE7A0A3E263A75 /* Pods-ViewStateCore_Example-dummy.m */; };
@@ -32,7 +33,8 @@
 		0427FC3899FE242213785607845AEA0D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1D4901E407922831186FC960DA082238 /* NSObject++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject++.swift"; path = "ViewStateCore/Classes/NSObject++.swift"; sourceTree = "<group>"; };
 		23EDB9299DA8562A5B39A7C7CC518AD0 /* ViewStateCore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ViewStateCore.xcconfig; sourceTree = "<group>"; };
-		3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protocols.swift; path = ViewStateCore/Classes/Protocols.swift; sourceTree = "<group>"; };
+		277C897A22E9594600995A92 /* DedicatedSubscribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DedicatedSubscribing.swift; path = ViewStateCore/Classes/DedicatedSubscribing.swift; sourceTree = "<group>"; };
+		3A1B109B78308DF226C483F4B359B23A /* ViewStateSubscriber.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewStateSubscriber.swift; path = ViewStateCore/Classes/ViewStateSubscriber.swift; sourceTree = "<group>"; };
 		436F92FF828ED81D3CFE7A0A3E263A75 /* Pods-ViewStateCore_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ViewStateCore_Example-dummy.m"; sourceTree = "<group>"; };
 		453724DEC3BF6D3443051B9A0368C8AA /* Pods-ViewStateCore_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViewStateCore_Example-frameworks.sh"; sourceTree = "<group>"; };
 		4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewState.swift; path = ViewStateCore/Classes/ViewState.swift; sourceTree = "<group>"; };
@@ -130,9 +132,10 @@
 		BA60E50246D47D0E0E1893A60955E96A /* ViewStateCore */ = {
 			isa = PBXGroup;
 			children = (
-				1D4901E407922831186FC960DA082238 /* NSObject++.swift */,
-				3A1B109B78308DF226C483F4B359B23A /* Protocols.swift */,
 				4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */,
+				3A1B109B78308DF226C483F4B359B23A /* ViewStateSubscriber.swift */,
+				277C897A22E9594600995A92 /* DedicatedSubscribing.swift */,
+				1D4901E407922831186FC960DA082238 /* NSObject++.swift */,
 				AD3B905A8A871639BAA0DAA48CF85AC7 /* Pod */,
 				E01B6B72F6CBF9AAE565642E79B2D700 /* Support Files */,
 			);
@@ -305,7 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E23553617D225E641A89FD142CA6ACBD /* NSObject++.swift in Sources */,
-				7271E3E266F8338C7DE7F2D2DF67E80C /* Protocols.swift in Sources */,
+				277C897B22E9594600995A92 /* DedicatedSubscribing.swift in Sources */,
+				7271E3E266F8338C7DE7F2D2DF67E80C /* ViewStateSubscriber.swift in Sources */,
 				2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */,
 				7C4E6C53A194D6ADD51352D7A1CAEEDB /* ViewStateCore-dummy.m in Sources */,
 			);
@@ -382,6 +386,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -510,6 +515,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
