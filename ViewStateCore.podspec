@@ -8,11 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ViewStateCore'
-  s.version          = '1.4.0'
+  s.version          = '1.4.1'
   s.swift_versions    = ['4.2', '5.0', '5.1']
   s.summary          = 'A short description of ViewStateCore.'
-
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

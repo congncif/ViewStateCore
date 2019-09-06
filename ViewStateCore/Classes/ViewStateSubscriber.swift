@@ -78,21 +78,21 @@ public struct FillingOption {
     public var keyPath: String
     public var action: (Any?) -> Void
 
-    public init(keyPath: String, action: @escaping (Any?) -> Void) {
+    public init(keyPath: String, filling: @escaping (Any?) -> Void) {
         self.keyPath = keyPath
-        self.action = action
+        self.action = filling
     }
 
     public init(keyPath: String, target: NSObject, targetKeyPath: String) {
-        let _fillingValue: (Any?) -> Void = { [weak target] value in
-            guard let _target = target else { return }
-            if _target.propertyNames().contains(targetKeyPath) {
-                _target.setValue(value, forKeyPath: targetKeyPath)
+        let fillingValue: (Any?) -> Void = { [weak target] value in
+            guard let target = target else { return }
+            if target.propertyNames().contains(targetKeyPath) {
+                target.setValue(value, forKeyPath: targetKeyPath)
             } else {
-                print("[ViewStateCore] The target \(_target) doesn't contain \(targetKeyPath) key")
+                assertionFailure("[ViewStateCore] The target \(target) doesn't contain \(targetKeyPath) key")
             }
         }
-        self.init(keyPath: keyPath, action: _fillingValue)
+        self.init(keyPath: keyPath, filling: fillingValue)
     }
 }
 
