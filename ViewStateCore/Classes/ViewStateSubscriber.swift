@@ -107,9 +107,10 @@ public struct FillingOption {
     }
 }
 
-public typealias OOO = FillingOption
+/// Option to Option
+public typealias O2O = FillingOption
 
-extension OOO {
+extension O2O {
     public init(_ stateKeyPath: String, _ target: NSObject, _ targetKeyPath: String) {
         self.init(keyPath: stateKeyPath, target: target, targetKeyPath: targetKeyPath)
     }

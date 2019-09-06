@@ -66,7 +66,7 @@ class ViewController: UIViewController, ViewStateFillable {
     
     func fillingOptions(_ state: ViewState) -> [FillingOption] {
         return [
-            OOO(#keyPath(TestState.test), valueLabel, #keyPath(UITextField.text))
+            O2O(#keyPath(TestState.test), valueLabel, #keyPath(UITextField.text))
         ]
     }
     
