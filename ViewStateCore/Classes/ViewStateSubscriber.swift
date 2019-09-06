@@ -83,13 +83,13 @@ public struct FillingMapper<Input, Output> {
 }
 
 public struct FillingOption {
-    public typealias Filling<Type> = (Type?) -> Void
+    public typealias Filling<Type> = (Type) -> Void
     public typealias Mapping = (Any?) -> Any?
 
     public var keyPath: String
     public var action: Filling<Any>
 
-    public init(keyPath: String, filling: @escaping Filling<Any>) {
+    public init(keyPath: String, filling: @escaping Filling<Any?>) {
         self.keyPath = keyPath
         self.action = filling
     }

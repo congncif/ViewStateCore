@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ViewStateCore'
-  s.version          = '1.4.5'
+  s.version          = '1.4.6'
   s.swift_versions    = ['4.2', '5.0', '5.1']
   s.summary          = 'A short description of ViewStateCore.'
 
