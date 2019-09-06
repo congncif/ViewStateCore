@@ -87,7 +87,7 @@ public struct FillingOption {
     public typealias Mapping = (Any?) -> Any?
 
     public var keyPath: String
-    public var action: Filling<Any>
+    public var action: Filling<Any?>
 
     public init(keyPath: String, filling: @escaping Filling<Any?>) {
         self.keyPath = keyPath
