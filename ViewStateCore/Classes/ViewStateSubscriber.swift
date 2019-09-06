@@ -74,17 +74,28 @@ public struct FillableKey {
     public static let image = "image"
 }
 
-public struct FillingOption {
-    public var keyPath: String
-    public var action: (Any?) -> Void
+public struct FillingMapper<Input, Output> {
+    let mapping: (Input) -> Output
 
-    public init(keyPath: String, filling: @escaping (Any?) -> Void) {
+    public init(_ mapping: @escaping (Input) -> Output) {
+        self.mapping = mapping
+    }
+}
+
+public struct FillingOption {
+    public typealias Filling<Type> = (Type?) -> Void
+    public typealias Mapping = (Any?) -> Any?
+
+    public var keyPath: String
+    public var action: Filling<Any>
+
+    public init(keyPath: String, filling: @escaping Filling<Any>) {
         self.keyPath = keyPath
         self.action = filling
     }
 
     public init(keyPath: String, target: NSObject,
-                targetKeyPath: String, mapping: ((Any?) -> Any?)? = nil) {
+                targetKeyPath: String, mapping: Mapping? = nil) {
         let fillingValue: (Any?) -> Void = { [weak target] value in
             guard let target = target else { return }
             if target.propertyNames().contains(targetKeyPath) {
@@ -100,7 +111,15 @@ public struct FillingOption {
         self.init(keyPath: keyPath, filling: fillingValue)
     }
 
-    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping (ValueType) -> Void) {
+    public init<In, Out>(keyPath: String, target: NSObject,
+                         targetKeyPath: String, mapper: FillingMapper<In, Out>? = nil) {
+        self.init(keyPath: keyPath, target: target, targetKeyPath: targetKeyPath, mapping: {
+            guard let input = $0 as? In else { return nil }
+            return mapper?.mapping(input)
+        })
+    }
+
+    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping Filling<ValueType>) {
         let action: (Any?) -> Void = { stateValue in
             if let value = stateValue as? ValueType {
                 filling(value)
@@ -117,8 +136,13 @@ public typealias O2O = FillingOption
 
 extension O2O {
     public init(_ stateKeyPath: String, _ target: NSObject,
-                _ targetKeyPath: String, _ mapping: ((Any?) -> Any?)? = nil) {
+                _ targetKeyPath: String, _ mapping: Mapping? = nil) {
         self.init(keyPath: stateKeyPath, target: target, targetKeyPath: targetKeyPath, mapping: mapping)
+    }
+
+    public init<In, Out>(_ stateKeyPath: String, _ target: NSObject,
+                         _ targetKeyPath: String, _ mapper: FillingMapper<In, Out>? = nil) {
+        self.init(keyPath: stateKeyPath, target: target, targetKeyPath: targetKeyPath, mapper: mapper)
     }
 }
 
