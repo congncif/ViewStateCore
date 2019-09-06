@@ -83,11 +83,16 @@ public struct FillingOption {
         self.action = filling
     }
 
-    public init(keyPath: String, target: NSObject, targetKeyPath: String) {
+    public init(keyPath: String, target: NSObject,
+                targetKeyPath: String, mapping: ((Any?) -> Any?)? = nil) {
         let fillingValue: (Any?) -> Void = { [weak target] value in
             guard let target = target else { return }
             if target.propertyNames().contains(targetKeyPath) {
-                target.setValue(value, forKeyPath: targetKeyPath)
+                var newValue = value
+                if let mapping = mapping {
+                    newValue = mapping(value)
+                }
+                target.setValue(newValue, forKeyPath: targetKeyPath)
             } else {
                 assertionFailure("[ViewStateCore] The target \(target) doesn't contain \(targetKeyPath) key")
             }
@@ -111,8 +116,9 @@ public struct FillingOption {
 public typealias O2O = FillingOption
 
 extension O2O {
-    public init(_ stateKeyPath: String, _ target: NSObject, _ targetKeyPath: String) {
-        self.init(keyPath: stateKeyPath, target: target, targetKeyPath: targetKeyPath)
+    public init(_ stateKeyPath: String, _ target: NSObject,
+                _ targetKeyPath: String, _ mapping: ((Any?) -> Any?)? = nil) {
+        self.init(keyPath: stateKeyPath, target: target, targetKeyPath: targetKeyPath, mapping: mapping)
     }
 }
 
