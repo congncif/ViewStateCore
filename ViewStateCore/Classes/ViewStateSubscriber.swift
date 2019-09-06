@@ -94,6 +94,17 @@ public struct FillingOption {
         }
         self.init(keyPath: keyPath, filling: fillingValue)
     }
+
+    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping (ValueType) -> Void) {
+        let action: (Any?) -> Void = { stateValue in
+            if let value = stateValue as? ValueType {
+                filling(value)
+            } else {
+                assertionFailure("Cannot map value of key \(keyPath) to type \(valueType)")
+            }
+        }
+        self.init(keyPath: keyPath, filling: action)
+    }
 }
 
 public typealias OOO = FillingOption
