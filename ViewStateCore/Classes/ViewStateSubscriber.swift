@@ -119,7 +119,7 @@ public struct FillingOption {
         })
     }
 
-    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping Filling<ValueType?>) {
+    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping Filling<ValueType>) {
         let action: (Any?) -> Void = { stateValue in
             let value = stateValue as? ValueType
             filling(value)
