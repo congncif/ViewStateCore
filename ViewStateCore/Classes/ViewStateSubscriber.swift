@@ -83,13 +83,13 @@ public struct FillingMapper<Input, Output> {
 }
 
 public struct FillingOption {
-    public typealias Filling<Type> = (Type) -> Void
+    public typealias Filling<Type> = (Type?) -> Void
     public typealias Mapping = (Any?) -> Any?
 
     public var keyPath: String
-    public var action: Filling<Any?>
+    public var action: Filling<Any>
 
-    public init(keyPath: String, filling: @escaping Filling<Any?>) {
+    public init(keyPath: String, filling: @escaping Filling<Any>) {
         self.keyPath = keyPath
         self.action = filling
     }
@@ -119,13 +119,10 @@ public struct FillingOption {
         })
     }
 
-    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping Filling<ValueType>) {
+    public init<ValueType>(keyPath: String, mapTo valueType: ValueType.Type, filling: @escaping Filling<ValueType?>) {
         let action: (Any?) -> Void = { stateValue in
-            if let value = stateValue as? ValueType {
-                filling(value)
-            } else {
-                assertionFailure("Cannot map value of key \(keyPath) to type \(valueType)")
-            }
+            let value = stateValue as? ValueType
+            filling(value)
         }
         self.init(keyPath: keyPath, filling: action)
     }
