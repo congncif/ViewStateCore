@@ -167,7 +167,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
         }
     }
     
-    @objc open func notifyStateDidChange(newState: ViewState? = nil, keyPath: String, oldValue: Any?, newValue: Any?) {
+    @objc open func notifyStateDidChange(newState: ViewState? = nil, keyPath: String, oldValue: Any? = nil, newValue: Any?) {
         let state = newState ?? self
         
         delegate?.viewStateDidChange(newState: state, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
