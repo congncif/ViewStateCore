@@ -20,10 +20,21 @@ extension FillableKey {
     static let custom = "custom"
 }
 
+class AAA: NSObject, NSCopying {
+    var abc = "abc"
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let newAAA = AAA()
+        newAAA.abc = abc
+        return newAAA
+    }
+}
+
 class TestState: ViewState {
     @objc dynamic var test: String = "Default Title"
     @objc dynamic var xx: String = ""
     @objc dynamic var testEnum: TestEnum = .v1
+    @objc dynamic var aaa: AAA = AAA()
     
     override var ignoreKeys: [String] {
         var keys = super.ignoreKeys

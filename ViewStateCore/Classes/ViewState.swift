@@ -77,7 +77,7 @@ open class ViewState: NSObject, ViewStateSubscriber {
         return []
     }
     
-    public override init() {
+    public required override init() {
         super.init()
         addObservers()
     }
