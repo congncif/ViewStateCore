@@ -98,7 +98,7 @@ public struct FillingOption {
                 targetKeyPath: String, mapping: Mapping? = nil) {
         let fillingValue: (Any?) -> Void = { [weak target] value in
             guard let target = target else { return }
-            if target.propertyNames().contains(targetKeyPath) {
+            if target.properties.contains(targetKeyPath) {
                 var newValue = value
                 if let mapping = mapping {
                     newValue = mapping(value)

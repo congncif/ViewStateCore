@@ -16,7 +16,7 @@
 		7D6A9267248E1989332B4806E4CEDF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		AB5B32507A301E26F28A54F50D636677 /* Pods-ViewStateCore_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F92FF828ED81D3CFE7A0A3E263A75 /* Pods-ViewStateCore_Example-dummy.m */; };
 		ABEF503F6CAE68CB38D73423D584E21E /* ViewStateCore-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D987874CE0A20C339B831700B3B8EDC /* ViewStateCore-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E23553617D225E641A89FD142CA6ACBD /* NSObject++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4901E407922831186FC960DA082238 /* NSObject++.swift */; };
+		E23553617D225E641A89FD142CA6ACBD /* ViewState+KVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4901E407922831186FC960DA082238 /* ViewState+KVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +31,7 @@
 
 /* Begin PBXFileReference section */
 		0427FC3899FE242213785607845AEA0D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		1D4901E407922831186FC960DA082238 /* NSObject++.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject++.swift"; path = "ViewStateCore/Classes/NSObject++.swift"; sourceTree = "<group>"; };
+		1D4901E407922831186FC960DA082238 /* ViewState+KVC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ViewState+KVC.swift"; path = "ViewStateCore/Classes/ViewState+KVC.swift"; sourceTree = "<group>"; };
 		23EDB9299DA8562A5B39A7C7CC518AD0 /* ViewStateCore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ViewStateCore.xcconfig; sourceTree = "<group>"; };
 		277C897A22E9594600995A92 /* DedicatedSubscribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DedicatedSubscribing.swift; path = ViewStateCore/Classes/DedicatedSubscribing.swift; sourceTree = "<group>"; };
 		3A1B109B78308DF226C483F4B359B23A /* ViewStateSubscriber.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewStateSubscriber.swift; path = ViewStateCore/Classes/ViewStateSubscriber.swift; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 				4D360E24A8F26DF1537EEB0E568EA124 /* ViewState.swift */,
 				3A1B109B78308DF226C483F4B359B23A /* ViewStateSubscriber.swift */,
 				277C897A22E9594600995A92 /* DedicatedSubscribing.swift */,
-				1D4901E407922831186FC960DA082238 /* NSObject++.swift */,
+				1D4901E407922831186FC960DA082238 /* ViewState+KVC.swift */,
 				AD3B905A8A871639BAA0DAA48CF85AC7 /* Pod */,
 				E01B6B72F6CBF9AAE565642E79B2D700 /* Support Files */,
 			);
@@ -307,7 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E23553617D225E641A89FD142CA6ACBD /* NSObject++.swift in Sources */,
+				E23553617D225E641A89FD142CA6ACBD /* ViewState+KVC.swift in Sources */,
 				277C897B22E9594600995A92 /* DedicatedSubscribing.swift in Sources */,
 				7271E3E266F8338C7DE7F2D2DF67E80C /* ViewStateSubscriber.swift in Sources */,
 				2D490A8A08FBBA4544FF6BBF6D68DEDC /* ViewState.swift in Sources */,

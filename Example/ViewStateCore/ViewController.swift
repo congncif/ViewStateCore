@@ -20,7 +20,7 @@ extension FillableKey {
     static let custom = "custom"
 }
 
-class AAA: NSObject, NSCopying {
+class AAA: NSObject, NSCopying, NSCoding {
     var abc = "abc"
     
     func copy(with zone: NSZone? = nil) -> Any {
@@ -28,12 +28,25 @@ class AAA: NSObject, NSCopying {
         newAAA.abc = abc
         return newAAA
     }
+    
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init()
+        abc = coder.decodeObject(forKey: "abc") as? String ?? ""
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(abc, forKey: "abc")
+    }
 }
 
 class TestState: ViewState {
     @objc dynamic var test: String = "Default Title"
-    @objc dynamic var xx: String = ""
-    @objc dynamic var testEnum: TestEnum = .v1
+    @objc dynamic var xx: String = "XX2XX"
+    @objc dynamic var testEnum: TestEnum = .v4
     @objc dynamic var aaa: AAA = AAA()
     
     override var ignoreKeys: [String] {
@@ -103,6 +116,13 @@ class ViewController: UIViewController, ViewStateFillable {
         state.register(subscriberObject: self)
         state.register(subscriber: internalVS1)
         state.register(subscriber: internalVS2)
+        
+        let data = state.toData()
+        
+        if let newState = TestState.fromData(data) {
+            let state3 = TestState()
+            state3.restoreFromState(newState)
+        }
         
         render()
     }
