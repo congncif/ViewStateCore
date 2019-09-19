@@ -74,23 +74,27 @@ extension ViewState: NSCopying {
 }
 
 extension ViewState {
-    public func toData() -> Data {
-        let data = NSKeyedArchiver.archivedData(withRootObject: self)
-        return data
-    }
-    
-    public class func fromData(_ data: Data) -> Self? {
-        let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? Self
+    fileprivate class func initFromData<StateType>(_ data: Data) -> StateType? {
+        let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? StateType
         return object
     }
     
+    public class func fromData(_ data: Data) -> Self? {
+        return initFromData(data)
+    }
+    
     public func restoreFromData(_ data: Data) {
-        if let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? Self {
+        if let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? ViewState {
             restoreFromState(object)
         } else {
             #if DEBUG
                 print("⚠️⚠️⚠️ Cannot restore \(String(describing: self)) from \(data)")
             #endif
         }
+    }
+    
+    public func toData() -> Data {
+        let data = NSKeyedArchiver.archivedData(withRootObject: self)
+        return data
     }
 }
