@@ -46,6 +46,7 @@ class AAA: NSObject, NSCopying, NSCoding {
 class TestState: ViewState {
     @objc dynamic var test: String = "Default Title"
     @objc dynamic var xx: String = "XX2XX"
+    @objc dynamic var number: Int = 2018
     @objc dynamic var testEnum: TestEnum = .v4
     @objc dynamic var aaa: AAA = AAA()
     
@@ -57,7 +58,7 @@ class TestState: ViewState {
     }
 }
 
-class ViewController: UIViewController, ViewStateFillable {
+class ViewController: UIViewController, ViewStateFillable, ViewStateMutiSubscribing {
     private var abc: String?
     
     struct InternalSubscriber: DedicatedViewStateRenderable {
@@ -94,6 +95,10 @@ class ViewController: UIViewController, ViewStateFillable {
         ]
     }
     
+    func effectSubscribers(forState viewState: ViewState) -> [ViewStateSubscriber] {
+        return [internalVS1, internalVS2]
+    }
+    
     var internalVS1: InternalSubscriber {
         return InternalSubscriber(vc: self)
     }
@@ -114,8 +119,8 @@ class ViewController: UIViewController, ViewStateFillable {
         super.viewDidLoad()
         
         state.register(subscriberObject: self)
-        state.register(subscriber: internalVS1)
-        state.register(subscriber: internalVS2)
+//        state.register(subscriber: internalVS1)
+//        state.register(subscriber: internalVS2)
         
         let data = state.toData()
         

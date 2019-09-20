@@ -20,16 +20,6 @@ public protocol ViewStateSubscriber {
     func viewStateWillUnsubscribe(_ state: ViewState)
 }
 
-// Optional methods
-
-extension ViewStateSubscriber {
-    public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {}
-
-    public func viewStateDidSubscribe(_ state: ViewState) {}
-
-    public func viewStateWillUnsubscribe(_ state: ViewState) {}
-}
-
 /**********************************************************************
  /// Use ViewStateFillable if you want listen changes of each of ViewState keys then fill into a target.
 
@@ -147,26 +137,21 @@ public protocol ViewStateFillable: ViewStateSubscriber {
     func fillingOptions(_ state: ViewState) -> [FillingOption]
 }
 
+/// Internal
 extension ViewStateFillable {
-    public func viewStateDidChange(newState: ViewState) {}
-
-    public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
-        fill(value: newValue, of: newState, forKeyPath: keyPath)
-    }
-
-    public func viewStateDidSubscribe(_ state: ViewState) {
-        let workingKeys = state.workingKeys
-        for key in workingKeys {
-            let value = state.value(forKeyPath: key)
-            fill(value: value, of: state, forKeyPath: key)
-        }
-    }
-
-    fileprivate func fill(value: Any?, of state: ViewState, forKeyPath keyPath: String) {
+    func fill(value: Any?, of state: ViewState, forKeyPath keyPath: String) {
         let options = fillingOptions(state)
         let targets = options.filter { $0.keyPath == keyPath }
         for item in targets {
             item.action(value)
+        }
+    }
+
+    func fillValuesFromState(_ state: ViewState) {
+        let workingKeys = state.workingKeys
+        for key in workingKeys {
+            let value = state.value(forKeyPath: key)
+            fill(value: value, of: state, forKeyPath: key)
         }
     }
 }
@@ -208,12 +193,54 @@ public protocol ViewStateRenderable: ViewStateSubscriber {
     func render(state: ViewState)
 }
 
-extension ViewStateRenderable {
+// MARK: - MutiSubscribers
+
+public protocol ViewStateMutiSubscribing {
+    func effectSubscribers(forState viewState: ViewState) -> [ViewStateSubscriber]
+}
+
+extension ViewStateSubscriber {
     public func viewStateDidChange(newState: ViewState) {
-        render(state: newState)
+        if let multiSubs = self as? ViewStateMutiSubscribing {
+            for sub in multiSubs.effectSubscribers(forState: newState) {
+                sub.viewStateDidChange(newState: newState)
+            }
+        }
+
+        if let renderableSub = self as? ViewStateRenderable {
+            renderableSub.render(state: newState)
+        }
+    }
+
+    public func viewStateDidChange(newState: ViewState, keyPath: String, oldValue: Any?, newValue: Any?) {
+        if let multiSubs = self as? ViewStateMutiSubscribing {
+            for sub in multiSubs.effectSubscribers(forState: newState) {
+                sub.viewStateDidChange(newState: newState, keyPath: keyPath, oldValue: oldValue, newValue: newValue)
+            }
+        }
+
+        if let fillableSub = self as? ViewStateFillable {
+            fillableSub.fill(value: newValue, of: newState, forKeyPath: keyPath)
+        }
     }
 
     public func viewStateDidSubscribe(_ state: ViewState) {
-        render(state: state)
+        if let multiSubs = self as? ViewStateMutiSubscribing {
+            for sub in multiSubs.effectSubscribers(forState: state) {
+                sub.viewStateDidSubscribe(state)
+            }
+        }
+
+        if let renderableSub = self as? ViewStateRenderable {
+            renderableSub.render(state: state)
+        }
+
+        if let fillableSub = self as? ViewStateFillable {
+            fillableSub.fillValuesFromState(state)
+        }
+    }
+
+    public func viewStateWillUnsubscribe(_ state: ViewState) {
+        // default optional
     }
 }
